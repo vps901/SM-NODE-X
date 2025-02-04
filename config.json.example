@@ -1,0 +1,30 @@
+{
+  "log": {
+    "loglevel": "none"
+  },
+  "inbounds": [
+    {
+      "port": 你自己的端口,
+      "listen": "127.0.0.1",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "敲个uuidgen替换掉这里",
+            "level": 0,
+            "email": "你自己的邮箱，我不留了"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/你自己的路径"
+        }
+      }
+    }
+  ],
+  "outbounds": [] // 自己替换掉，记得删注释
+}

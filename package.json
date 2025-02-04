@@ -1,0 +1,31 @@
+{
+  "name": "sm-node-x",
+  "version": "2025.2.4",
+  "description": "A Node Script for Saving Server Resources",
+  "main": "app.js",
+  "scripts": {
+    "test": "mkdir vps901 && cd vps901 && wget -O 1 https://github.com/XTLS/Xray-core/releases/download/v25.1.30/Xray-freebsd-64.zip && unzip 1 && mv xray ../web.js && cd .. && rm -rf vps901 && echo Installation completed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vps901/SM-NODE-X.git"
+  },
+  "keywords": [
+    "XRAY",
+    "NODEJS",
+    "EXPRESS",
+    "HTTP_PROXY",
+    "WEBSOCKET_PROXY"
+  ],
+  "author": "vps901",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/vps901/SM-NODE-X/issues"
+  },
+  "homepage": "https://github.com/vps901/SM-NODE-X#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "http-proxy-middleware": "^3.0.3"
+  }
+}
