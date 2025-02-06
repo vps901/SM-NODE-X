@@ -11,7 +11,6 @@
     "url": "git+https://github.com/vps901/SM-NODE-X.git"
   },
   "keywords": [
-    "SaveMoney",
     "Xray"
   ],
   "author": "vps901",
@@ -19,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/vps901/SM-NODE-X/issues"
   },
-  "homepage": "https://github.com/vps901/SM-NODE-X#readme"
+  "homepage": "https://github.com/vps901/SM-NODE-X#readme",
+  "dependencies": {
+    "express": "^4.21.2",
+    "http-proxy-middleware": "^3.0.3"
+  }
 }

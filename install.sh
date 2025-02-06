@@ -14,37 +14,41 @@ cat <<EOF > config.json
 {
   "log": {
     "loglevel": "none"
-  },
+},
   "inbounds": [
     {
       "port": $user_port,
       "listen": "127.0.0.1",
       "protocol": "vless",
       "settings": {
-        "clients": [
-          {
-            "id": "$uuid",
-            "level": 0,
-            "email": "$user_email"
-          }
-        ],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "ws",
-        "security": "none",
-        "wsSettings": {
-          "path": "/$ws_path"
-        }
-      }
+	"clients": [
+	  {
+	    "id": "$uuid",
+	    "level": 0,
+	    "email": "$user_email"
     }
+	],
+	"decryption": "none"
+},
+      "streamSettings": {
+	"network": "ws",
+	"security": "none",
+	"wsSettings": {
+	  "path": "/$ws_path"
+  }
+}
+}
   ],
-  "outbounds": []
+  "outbounds": [
+ {
+      "protocol": "freedom"
+}
+]
 }
 EOF
 
 # 创建 App.js 文件
-cat <<EOF > App.js
+cat <<EOF > app.js
 const http = require('http');
 const { exec, execSync } = require('child_process');
 const express = require('express');
@@ -64,17 +68,17 @@ function checkAndRunWeb() {
     if (output) {
       console.log('Web.js 已经在运行中。');
       return;
-    }
-  } catch (err) {
+}
+} catch (err) {
     console.log('Web.js 未运行，正在启动...');
     exec(webCommand, (error) => {
       if (error) {
-        console.error(\`启动 Web.js 失败: \${error.message}\`);
-      } else {
-        console.log('Web.js 已启动。');
-      }
-    });
-  }
+	console.error(\`启动 Web.js 失败: \${error.message}\`);
+} else {
+	console.log('Web.js 已启动。');
+}
+});
+}
 }
 checkAndRunWeb();
 
@@ -111,7 +115,7 @@ app.get('/list', (req, res) => {
   if (!vlessAddress) {
     res.status(500).send('读取配置文件失败，请重新运行 install.sh 脚本。');
     return;
-  }
+}
   const responseText = \`VLESS连接\\n\\n\${vlessAddress}\\n\\nCLASH订阅访问 /sub\`;
   res.type('text/plain').send(responseText);
 });
@@ -123,7 +127,7 @@ app.use('/$ws_path', createProxyMiddleware({
   changeOrigin: true,
   pathRewrite: {
     '^/$ws_path': '' // 移除 /$ws_path 前缀以正确映射到 Web.js 的路径
-  }
+}
 }));
 
 // 打印当前进程状态
@@ -132,9 +136,9 @@ app.get('/status', (req, res) => {
     if (error) {
       res.status(500).send(\`执行失败: \${error.message}\`);
       return;
-    }
+}
     res.type('text/plain').send(stdout);
-  });
+});
 });
 
 // 重启用户所有进程
@@ -143,9 +147,9 @@ app.get('/restart', (req, res) => {
     if (error) {
       res.status(500).send(\`重启失败: \${error.message}\`);
       return;
-    }
+}
     res.send('用户进程已重启。');
-  });
+});
 });
 
 // Clash 订阅
@@ -153,7 +157,7 @@ app.get('/sub', (req, res) => {
   if (!clashConfig) {
     res.status(500).send('读取配置文件失败，请重新运行 install.sh 脚本。');
     return;
-  }
+}
   res.type('text/plain').send(clashConfig);
 });
 
@@ -190,7 +194,7 @@ proxies:
     ws-opts:
       path: /$ws_path
       headers:
-        Host: $domain
+	Host: $domain
 EOF
 
 # 运行npm测试
