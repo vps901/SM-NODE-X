@@ -123,9 +123,6 @@ app.use('/$ws_path', createProxyMiddleware({
   changeOrigin: true,
   pathRewrite: {
     '^/$ws_path': '' // 移除 /$ws_path 前缀以正确映射到 Web.js 的路径
-  },
-  onProxyReqWs: (proxyReq, req, socket, options, head) => {
-    proxyReq.setHeader('Host', '$domain');
   }
 }));
 
